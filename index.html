@@ -207,6 +207,9 @@ footer.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; backgro
 footer.bar .wrap { display: flex; justify-content: center; align-items: center; min-height: 42px; text-align: center; }
 .wa-float { bottom: 58px; }
 
+.map-link { cursor: pointer; }
+.map-link:hover .us, .map-link:focus .us { fill: #d9a066; }
+.map-btn { justify-self: start; }
 /* Order form */
 .contact-grid { grid-template-columns: 1.25fr 1fr; align-items: start; }
 .side { display: grid; gap: 28px; }
@@ -590,11 +593,13 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
               <rect class="lot" x="234" y="10" width="70" height="30" />
               <rect class="lot" x="124" y="10" width="82" height="30" />
               <rect class="lot" x="20" y="135" width="76" height="28" />
-              <rect class="us" x="234" y="62" width="70" height="30" />
-              <text x="269" y="82" text-anchor="middle" style="fill:#1b1408">GRAY DOOR</text>
+              <a class="map-link" href="https://share.google/OkUMNKGyup9yIyF0R" target="_blank" rel="noopener" aria-label="Gray Door konumunu haritada aç">
+                <rect class="us" x="234" y="62" width="70" height="30" />
+                <text x="269" y="82" text-anchor="middle" style="fill:#1b1408">GRAY DOOR</text>
+              </a>
               <text x="8" y="112">Ana yol</text>
             </svg>
-            <p class="mono" style="color:#9aa0a7">Temsili kroki · konum bağlantısı eklenecek</p>
+            <a class="btn btn-primary map-btn" href="https://share.google/OkUMNKGyup9yIyF0R" target="_blank" rel="noopener">Haritada aç ve yol tarifi al</a>
           </div>
         </div>
       </div>
