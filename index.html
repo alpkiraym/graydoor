@@ -254,6 +254,9 @@ section.block { padding: clamp(64px, 9vw, 110px) 0; }
 .map-card .lot { fill: #fff; stroke: #e6d8c5; }
 .map-card .wall { fill: none; stroke: #d9c8b1; stroke-width: 1.5; stroke-dasharray: 4 3; }
 .map-card .cami { fill: #5f8f7a; }
+.map-card .okul-bg { fill: rgba(91,127,170,.08); stroke: #a9bcd2; }
+.map-card .okul { fill: #5b7faa; }
+.map-card .lbl-okul { fill: #3d5f87; font-size: 12px; font-weight: 800; }
 .map-card .lbl-cami { fill: #3f6a57; font-size: 12px; font-weight: 800; }
 .map-card .lbl-us { fill: #fff; font-size: 11px; font-weight: 800; }
 .map-card .lbl-road { fill: #9a8a76; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
@@ -584,7 +587,7 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
           </div>
           <div class="panel map-card">
             <h3>Kahta OSB</h3>
-            <p>Atölyemizi ziyaret edip numuneleri yerinde görebilirsiniz. Ana yol üzerinde, caminin tam karşısındayız.</p>
+            <p>Atölyemizi ziyaret edip numuneleri yerinde görebilirsiniz. Ana yol üzerinde, caminin tam karşısındayız. Caminin hemen altında okul var.</p>
             <svg viewBox="0 0 400 357" aria-label="Kahta Organize Sanayi Bölgesi kroki: Gray Door ana yolun batısında, caminin karşısında">
               <rect width="400" height="357" fill="#f7f0e6"/>
               <path d="M228 330 C 300 300 330 285 400 270" class="road-thin"/>
@@ -601,9 +604,15 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
                 <rect class="lot" x="0" y="250" width="30" height="34" rx="4"/>
                 <rect class="lot" x="38" y="314" width="58" height="43" rx="4"/>
                 <rect class="lot" x="250" y="70" width="20" height="16" rx="3"/>
-                <rect class="wall" x="208" y="160" width="138" height="98" rx="4"/>
+                <rect class="wall okul-bg" x="208" y="160" width="138" height="98" rx="4"/>
                 <rect class="lot" x="240" y="170" width="64" height="31" rx="3"/>
                 <rect class="lot" x="300" y="214" width="22" height="40" rx="3"/>
+              </g>
+              <g class="school">
+                <rect class="okul" x="218" y="218" width="22" height="22" rx="4"/>
+                <path d="M229 223 l7 3.5 -7 3.5 -7 -3.5z" fill="#fff"/>
+                <path d="M224.5 228.5 v4 c2.5 2 6.5 2 9 0 v-4 l-4.5 2.2z" fill="#fff"/>
+                <text x="245" y="234" class="lbl-okul">Okul</text>
               </g>
               <g class="mosque">
                 <rect class="cami" x="234" y="108" width="48" height="48" rx="5"/>
