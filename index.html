@@ -262,12 +262,33 @@ section.block { padding: clamp(64px, 9vw, 110px) 0; }
 .map-card .lbl-road { fill: #9a8a76; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
 .map-card .us { fill: var(--oak); }
 .map-card text { fill: var(--muted); font-family: var(--font-body); font-size: 11px; font-weight: 600; }
-.map-link { cursor: pointer; }
-.map-btns { display: flex; flex-wrap: wrap; gap: 10px; }
-.map-btns .btn { flex: 1 1 180px; padding: 14px 18px; font-size: 15px; }
-.map-btns svg { width: 18px; height: 18px; }
-.btn-apple { background: linear-gradient(180deg, #3a3a3c, #1c1c1e); color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.15); }
-.map-link:hover .us { fill: var(--oak-deep); }
+.map-open { display: block; width: 100%; padding: 0; margin: 16px 0 10px; border: 0; background: none; cursor: pointer; position: relative; border-radius: 16px; font: inherit; }
+.map-open svg { margin: 0 !important; display: block; transition: transform .3s, box-shadow .3s; }
+.map-open:hover svg { transform: translateY(-2px); box-shadow: var(--shadow); }
+.map-cta { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); background: var(--card); color: var(--ink); font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 999px; box-shadow: var(--shadow); white-space: nowrap; }
+.map-hint { font-size: 14px; color: var(--muted); }
+.map-modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: rgba(44,36,27,.45); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); animation: fadein .2s ease; }
+.map-modal[hidden] { display: none; }
+.map-dialog { position: relative; width: min(420px, 100%); background: var(--card); border-radius: 24px; padding: 28px 22px 22px; box-shadow: var(--shadow-lg); animation: popin .28s cubic-bezier(.2,.8,.2,1); }
+.map-dialog h3 { font-size: 26px; font-weight: 800; }
+.map-dialog > p { color: var(--muted); margin: 6px 0 18px; }
+.map-close { position: absolute; top: 14px; right: 14px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--bg); color: var(--muted); font-size: 24px; line-height: 1; cursor: pointer; }
+.map-close:hover { background: var(--oak-soft); color: var(--ink); }
+.map-choices { display: grid; gap: 12px; }
+.map-choice { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 18px; background: var(--bg); border: 1.5px solid var(--line); text-decoration: none; color: var(--ink); transition: border-color .2s, transform .2s, background .2s; }
+.map-choice:hover { border-color: var(--oak); background: #fff; transform: translateY(-2px); }
+.mc-ico { width: 48px; height: 48px; flex: none; border-radius: 14px; display: grid; place-items: center; color: #fff; }
+.mc-ico svg { width: 24px; height: 24px; }
+.mc-google { background: linear-gradient(180deg, #c58d53, #a97139); }
+.mc-apple { background: linear-gradient(180deg, #3a3a3c, #1c1c1e); }
+.mc-txt { display: grid; }
+.mc-txt b { font-size: 17px; }
+.mc-txt small { color: var(--muted); font-size: 13px; }
+@keyframes fadein { from { opacity: 0; } }
+@keyframes popin { from { opacity: 0; transform: translateY(16px) scale(.97); } }
+@media (prefers-reduced-motion: reduce) { .map-modal, .map-dialog { animation: none; } }
+
+.map-open:hover .us { fill: var(--oak-deep); }
 .pin { animation: bob 2s ease-in-out infinite; transform-origin: center bottom; transform-box: fill-box; }
 @keyframes bob { 50% { transform: translateY(-4px); } }
 @media (prefers-reduced-motion: reduce) { .pin { animation: none; } }
@@ -588,6 +609,7 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
           <div class="panel map-card">
             <h3>Kahta OSB</h3>
             <p>Atölyemizi ziyaret edip numuneleri yerinde görebilirsiniz. Ana yol üzerinde, caminin tam karşısındayız. Caminin hemen altında okul var.</p>
+            <button type="button" class="map-open" id="map-open" aria-haspopup="dialog">
             <svg viewBox="0 0 400 357" aria-label="Kahta Organize Sanayi Bölgesi kroki: Gray Door ana yolun batısında, caminin karşısında">
               <rect width="400" height="357" fill="#f7f0e6"/>
               <path d="M228 330 C 300 300 330 285 400 270" class="road-thin"/>
@@ -622,29 +644,40 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
                 <path d="M274 118 l1.5 -5 l1.5 5z" fill="#fff"/>
                 <text x="288" y="136" class="lbl-cami">Cami</text>
               </g>
-              <a class="map-link" href="https://maps.app.goo.gl/p97QoLsFUSQFGRvA9" aria-label="Gray Door konumunu haritada aç">
+              <g class="us-g">
                 <rect class="us" x="104" y="48" width="74" height="74" rx="6"/>
                 <text x="141" y="90" text-anchor="middle" class="lbl-us">GRAY DOOR</text>
                 <g class="pin"><path d="M141 52c-7 0-12 5-12 11.5 0 8.5 12 18.5 12 18.5s12-10 12-18.5C153 57 148 52 141 52z" fill="#d9534f"/><circle cx="141" cy="63.5" r="4.5" fill="#fff"/></g>
-              </a>
+              </g>
               <text x="186" y="245" class="lbl-road" transform="rotate(-76 186 245)">Ana yol</text>
             </svg>
-            <div class="map-btns">
-              <a class="btn btn-primary" href="https://maps.app.goo.gl/p97QoLsFUSQFGRvA9">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
-                Google Haritalar
-              </a>
-              <a class="btn btn-apple" id="apple-maps" href="https://maps.apple.com/?ll=37.802726,38.568874&amp;q=Gray%20Door">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.8 1.2 1.8 2.6 3.1 2.5 1.3-.1 1.7-.8 3.3-.8 1.5 0 1.9.8 3.3.8 1.4 0 2.2-1.2 3-2.5.9-1.4 1.3-2.8 1.3-2.9 0 0-2.6-1-2.6-4zM14 5.3c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>
-                Apple Haritalar
-              </a>
-            </div>
+              <span class="map-cta">Yol tarifi için dokunun</span>
+            </button>
+            <p class="map-hint">Krokiye dokunun, Google Haritalar veya Apple Haritalar ile yol tarifi alın.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 </main>
+
+<div class="map-modal" id="map-modal" hidden>
+  <div class="map-dialog" role="dialog" aria-modal="true" aria-labelledby="map-modal-title">
+    <button type="button" class="map-close" id="map-close" aria-label="Kapat">×</button>
+    <h3 id="map-modal-title">Yol tarifi alın</h3>
+    <p>Hangi harita uygulamasıyla açmak istersiniz?</p>
+    <div class="map-choices">
+      <a class="map-choice" href="https://maps.app.goo.gl/p97QoLsFUSQFGRvA9">
+        <span class="mc-ico mc-google"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span>
+        <span class="mc-txt"><b>Google Haritalar</b><small>Android ve tüm telefonlar</small></span>
+      </a>
+      <a class="map-choice" href="https://maps.apple.com/?ll=37.802726,38.568874&amp;q=Gray%20Door">
+        <span class="mc-ico mc-apple"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.8 1.2 1.8 2.6 3.1 2.5 1.3-.1 1.7-.8 3.3-.8 1.5 0 1.9.8 3.3.8 1.4 0 2.2-1.2 3-2.5.9-1.4 1.3-2.8 1.3-2.9 0 0-2.6-1-2.6-4zM14 5.3c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg></span>
+        <span class="mc-txt"><b>Apple Haritalar</b><small>iPhone ve iPad</small></span>
+      </a>
+    </div>
+  </div>
+</div>
 
 <a class="wa-float" href="https://wa.me/905333087422?text=Merhaba%2C%20Gray%20Door%20i%C3%A7in%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener" aria-label="WhatsApp ile yazın">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
@@ -790,11 +823,16 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
 </script>
 <script>
 (function () {
-  var ua = navigator.userAgent || '';
-  var isApple = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  if (!isApple) return;
-  var apple = document.getElementById('apple-maps').getAttribute('href');
-  document.querySelectorAll('.map-link').forEach(function (a) { a.setAttribute('href', apple); });
+  var modal = document.getElementById('map-modal');
+  var opener = document.getElementById('map-open');
+  var closeBtn = document.getElementById('map-close');
+  function open() { modal.hidden = false; document.body.style.overflow = 'hidden'; closeBtn.focus(); }
+  function close() { modal.hidden = true; document.body.style.overflow = ''; opener.focus(); }
+  opener.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+  modal.querySelectorAll('.map-choice').forEach(function (a) { a.addEventListener('click', function () { setTimeout(close, 300); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) close(); });
 })();
 </script>
 </body>
