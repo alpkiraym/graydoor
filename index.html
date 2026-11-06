@@ -179,9 +179,17 @@ section.block { padding: clamp(64px, 9vw, 110px) 0; }
 .d-gray { background: linear-gradient(98deg, #c9ced4, #a9b0b8); }
 .d-oak { background: linear-gradient(98deg, #cf9a5e, #ad753c); }
 .d-walnut { background: linear-gradient(98deg, #8a5a35, #6a4224); }
-.model-meta { width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; border-top: 1px solid var(--line); padding-top: 12px; }
+.model-meta { width: 100%; flex-wrap: wrap; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; border-top: 1px solid var(--line); padding-top: 12px; }
 .model-meta b { font-family: var(--font-display); font-size: 22px; font-weight: 700; }
 .model-meta span { color: var(--muted); font-size: 13px; font-weight: 600; }
+.swatches { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
+.sw { width: 24px; height: 24px; padding: 0; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 0 0 1px var(--line), 0 2px 5px rgba(90,60,30,.18); transition: transform .2s, box-shadow .2s; }
+.sw:hover { transform: scale(1.12); }
+.sw[aria-pressed="true"] { transform: scale(1.15); box-shadow: 0 0 0 2px var(--oak), 0 3px 8px rgba(90,60,30,.25); }
+.mdoor.swap { animation: swap .6s cubic-bezier(.2,.8,.2,1); }
+@keyframes swap { 0% { transform: rotateY(-8deg); } 40% { transform: rotateY(-38deg); } 100% { transform: rotateY(-8deg); } }
+.model-meta .cname { font-style: normal; }
+@media (prefers-reduced-motion: reduce) { .mdoor.swap { animation: none; } }
 .models-note { margin-top: 26px; color: var(--muted); text-align: center; }
 
 /* Process */
@@ -287,6 +295,8 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
   .mdoor .mk { top: 76px; }
   .steps { grid-template-columns: 1fr; }
   .fact b { font-size: 28px; }
+  .swatches { gap: 5px; }
+  .sw { width: 20px; height: 20px; border-width: 1.5px; }
 }
 </style>
 </head>
@@ -423,31 +433,31 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
       <div class="sec-head center">
         <span class="eyebrow">Modeller</span>
         <h2>Kapı modelleri</h2>
-        <p>Başlangıç desenlerimiz. Her model istediğiniz ölçü, renk ve yüzeyle yapılır. Kapının üzerine gelin, açılsın.</p>
+        <p>Başlangıç desenlerimiz. Her model istediğiniz ölçü, renk ve yüzeyle yapılır. Renk düğmelerine dokunarak kapıyı farklı renklerde görün.</p>
       </div>
       <div class="models">
-        <figure class="model">
-          <div class="mstage"><div class="mdoor d-white"><span class="mk"></span></div></div>
-          <figcaption class="model-meta"><b>Düz</b><span>GD-01 · Beyaz lake</span></figcaption>
+        <figure class="model" data-color="beyaz">
+          <div class="mstage"><div class="mdoor"><span class="mk"></span></div></div>
+          <figcaption class="model-meta"><b>Düz</b><span>GD-01 · <i class="cname"></i></span></figcaption>
         </figure>
-        <figure class="model">
-          <div class="mstage"><div class="mdoor d-gray">
+        <figure class="model" data-color="gri">
+          <div class="mstage"><div class="mdoor">
             <span class="mg" style="top:18%"></span><span class="mg" style="top:34%"></span><span class="mg" style="top:62%"></span><span class="mg" style="top:78%"></span><span class="mk"></span>
           </div></div>
-          <figcaption class="model-meta"><b>Çizgi</b><span>GD-02 · Gri</span></figcaption>
+          <figcaption class="model-meta"><b>Çizgi</b><span>GD-02 · <i class="cname"></i></span></figcaption>
         </figure>
-        <figure class="model">
-          <div class="mstage"><div class="mdoor d-oak">
+        <figure class="model" data-color="mese">
+          <div class="mstage"><div class="mdoor">
             <span class="mp" style="top:7%;height:39%"></span><span class="mp" style="top:54%;height:39%"></span><span class="mk"></span>
           </div></div>
-          <figcaption class="model-meta"><b>Panel</b><span>GD-03 · Meşe</span></figcaption>
+          <figcaption class="model-meta"><b>Panel</b><span>GD-03 · <i class="cname"></i></span></figcaption>
         </figure>
-        <figure class="model">
-          <div class="mstage"><div class="mdoor d-walnut">
+        <figure class="model" data-color="ceviz">
+          <div class="mstage"><div class="mdoor">
             <span class="mp" style="top:6%;height:41%"></span><span class="mp" style="top:12%;height:29%;left:24px;right:24px"></span>
             <span class="mp" style="top:53%;height:41%"></span><span class="mp" style="top:59%;height:29%;left:24px;right:24px"></span><span class="mk"></span>
           </div></div>
-          <figcaption class="model-meta"><b>Klasik</b><span>GD-04 · Ceviz</span></figcaption>
+          <figcaption class="model-meta"><b>Klasik</b><span>GD-04 · <i class="cname"></i></span></figcaption>
         </figure>
       </div>
       <p class="models-note">Kendi deseninizi istiyorsanız bir çizim ya da fotoğraf getirmeniz yeterli.</p>
@@ -693,5 +703,42 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
 })();
 </script>
 
+<script>
+(function () {
+  var COLORS = [
+    { k: 'beyaz', n: 'Beyaz lake', a: '#fbf8f3', b: '#e9e2d6' },
+    { k: 'krem', n: 'Krem', a: '#f3e6cf', b: '#dfcaa6' },
+    { k: 'gri', n: 'Gri', a: '#c9ced4', b: '#a5acb4' },
+    { k: 'antrasit', n: 'Antrasit', a: '#5c6168', b: '#3d4147' },
+    { k: 'mese', n: 'Meşe', a: '#cf9a5e', b: '#ad753c' },
+    { k: 'ceviz', n: 'Ceviz', a: '#8a5a35', b: '#5f3b20' }
+  ];
+  function paint(model, c, animate) {
+    var door = model.querySelector('.mdoor');
+    door.style.background = 'linear-gradient(98deg, ' + c.a + ', ' + c.b + ')';
+    model.querySelector('.cname').textContent = c.n;
+    model.querySelectorAll('.sw').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.k === c.k ? 'true' : 'false'); });
+    if (animate) { door.classList.remove('swap'); void door.offsetWidth; door.classList.add('swap'); }
+  }
+  document.querySelectorAll('.model').forEach(function (model) {
+    var name = model.querySelector('.model-meta b').textContent;
+    var row = document.createElement('div');
+    row.className = 'swatches';
+    row.setAttribute('role', 'group');
+    row.setAttribute('aria-label', name + ' modeli için renk seçin');
+    COLORS.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'sw'; b.dataset.k = c.k;
+      b.title = c.n; b.setAttribute('aria-label', c.n);
+      b.style.background = 'linear-gradient(135deg, ' + c.a + ', ' + c.b + ')';
+      b.addEventListener('click', function () { paint(model, c, true); });
+      row.appendChild(b);
+    });
+    model.insertBefore(row, model.querySelector('.model-meta'));
+    var start = COLORS.filter(function (c) { return c.k === model.dataset.color; })[0] || COLORS[0];
+    paint(model, start, false);
+  });
+})();
+</script>
 </body>
 </html>
