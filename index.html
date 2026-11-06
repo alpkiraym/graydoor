@@ -184,8 +184,10 @@ section.block { padding: clamp(56px, 8vw, 104px) 0; }
 .map-card .us { fill: var(--oak); }
 .map-card text { fill: #9aa0a7; font-family: var(--font-mono); font-size: 11px; }
 
-footer { background: #1a1c1f; color: #8c9198; padding: 26px 0; font-size: 14px; }
-footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+body { padding-bottom: 44px; }
+footer.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; background: #1a1c1f; color: #a3a8ae; border-top: 2px solid var(--oak); font-size: 14px; }
+footer.bar .wrap { display: flex; justify-content: center; align-items: center; min-height: 42px; text-align: center; }
+.wa-float { bottom: 58px; }
 
 /* Responsive */
 @media (max-width: 960px) {
@@ -209,7 +211,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   .fact:first-child { padding-left: 0; }
   .info-row { grid-template-columns: 1fr; gap: 4px; }
   .timeline li { grid-template-columns: 1fr; gap: 2px; }
-  footer { padding-bottom: 84px; }
 }
 @media (max-width: 420px) {
   .models { grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -477,10 +478,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   WhatsApp
 </a>
 
-<footer>
+<footer class="bar">
   <div class="wrap">
-    <span>© 2026 Gray Door Kapı Kapak CNC İşleme</span>
-    <span>Kahta OSB · Adıyaman</span>
+    <span>2026 © Her Hakkı Saklıdır</span>
   </div>
 </footer>
 
