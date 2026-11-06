@@ -251,7 +251,12 @@ section.block { padding: clamp(64px, 9vw, 110px) 0; }
 .map-card svg { width: 100%; height: auto; margin: 16px 0; border-radius: 16px; background: #f7f0e6; }
 .map-card .road { stroke: #e4d5c1; stroke-width: 10; fill: none; stroke-linecap: round; }
 .map-card .road-thin { stroke: #ece0cf; stroke-width: 5; fill: none; }
-.map-card .lot { fill: #fff; stroke: #ecdfcd; }
+.map-card .lot { fill: #fff; stroke: #e6d8c5; }
+.map-card .wall { fill: none; stroke: #d9c8b1; stroke-width: 1.5; stroke-dasharray: 4 3; }
+.map-card .cami { fill: #5f8f7a; }
+.map-card .lbl-cami { fill: #3f6a57; font-size: 12px; font-weight: 800; }
+.map-card .lbl-us { fill: #fff; font-size: 11px; font-weight: 800; }
+.map-card .lbl-road { fill: #9a8a76; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
 .map-card .us { fill: var(--oak); }
 .map-card text { fill: var(--muted); font-family: var(--font-body); font-size: 11px; font-weight: 600; }
 .map-link { cursor: pointer; }
@@ -575,21 +580,41 @@ footer.bar .wrap { display: flex; justify-content: center; align-items: center; 
           </div>
           <div class="panel map-card">
             <h3>Kahta OSB</h3>
-            <p>Atölyemizi ziyaret edip numuneleri yerinde görebilirsiniz.</p>
-            <svg viewBox="0 0 320 180" aria-label="Kahta Organize Sanayi Bölgesi temsili kroki">
-              <path class="road" d="M-10 128 C80 116 170 138 330 106" />
-              <path class="road-thin" d="M110 0 V180 M220 0 V180 M0 54 H320" />
-              <rect class="lot" x="20" y="66" width="76" height="38" rx="6" />
-              <rect class="lot" x="124" y="66" width="82" height="38" rx="6" />
-              <rect class="lot" x="234" y="12" width="70" height="30" rx="6" />
-              <rect class="lot" x="124" y="12" width="82" height="30" rx="6" />
-              <rect class="lot" x="20" y="144" width="76" height="26" rx="6" />
+            <p>Atölyemizi ziyaret edip numuneleri yerinde görebilirsiniz. Ana yol üzerinde, caminin tam karşısındayız.</p>
+            <svg viewBox="0 0 400 357" aria-label="Kahta Organize Sanayi Bölgesi kroki: Gray Door ana yolun batısında, caminin karşısında">
+              <rect width="400" height="357" fill="#f7f0e6"/>
+              <path d="M228 330 C 300 300 330 285 400 270" class="road-thin"/>
+              <path d="M51 4 L218 47 L400 97" class="road"/>
+              <path d="M253 357 C 230 320 200 300 196 270 L224 51" class="road-thin"/>
+              <path d="M129 357 L218 0" class="road"/>
+              <g class="lot-g">
+                <rect class="lot" x="12" y="20" width="36" height="66" rx="4"/>
+                <rect class="lot" x="52" y="22" width="44" height="82" rx="4"/>
+                <rect class="lot" x="0" y="98" width="64" height="88" rx="4"/>
+                <rect class="lot" x="84" y="138" width="70" height="52" rx="4"/>
+                <rect class="lot" x="64" y="196" width="68" height="64" rx="4"/>
+                <rect class="lot" x="38" y="264" width="78" height="44" rx="4"/>
+                <rect class="lot" x="0" y="250" width="30" height="34" rx="4"/>
+                <rect class="lot" x="38" y="314" width="58" height="43" rx="4"/>
+                <rect class="lot" x="250" y="70" width="20" height="16" rx="3"/>
+                <rect class="wall" x="208" y="160" width="138" height="98" rx="4"/>
+                <rect class="lot" x="240" y="170" width="64" height="31" rx="3"/>
+                <rect class="lot" x="300" y="214" width="22" height="40" rx="3"/>
+              </g>
+              <g class="mosque">
+                <rect class="cami" x="234" y="108" width="48" height="48" rx="5"/>
+                <path d="M248 132 a10 10 0 0 1 20 0 z" fill="#fff"/>
+                <rect x="246" y="132" width="24" height="10" rx="1" fill="#fff"/>
+                <rect x="274" y="118" width="3" height="24" rx="1" fill="#fff"/>
+                <path d="M274 118 l1.5 -5 l1.5 5z" fill="#fff"/>
+                <text x="288" y="136" class="lbl-cami">Cami</text>
+              </g>
               <a class="map-link" href="https://maps.app.goo.gl/p97QoLsFUSQFGRvA9" aria-label="Gray Door konumunu haritada aç">
-                <rect class="us" x="234" y="66" width="70" height="30" rx="6" />
-                <text x="269" y="85" text-anchor="middle" style="fill:#fff">GRAY DOOR</text>
-                <g class="pin"><path d="M269 34c-7 0-12 5-12 11.5 0 8.5 12 18.5 12 18.5s12-10 12-18.5C281 39 276 34 269 34z" fill="#d9534f"/><circle cx="269" cy="45.5" r="4.5" fill="#fff"/></g>
+                <rect class="us" x="104" y="48" width="74" height="74" rx="6"/>
+                <text x="141" y="90" text-anchor="middle" class="lbl-us">GRAY DOOR</text>
+                <g class="pin"><path d="M141 52c-7 0-12 5-12 11.5 0 8.5 12 18.5 12 18.5s12-10 12-18.5C153 57 148 52 141 52z" fill="#d9534f"/><circle cx="141" cy="63.5" r="4.5" fill="#fff"/></g>
               </a>
-              <text x="10" y="120">Ana yol</text>
+              <text x="186" y="245" class="lbl-road" transform="rotate(-76 186 245)">Ana yol</text>
             </svg>
             <a class="btn btn-primary" href="https://maps.app.goo.gl/p97QoLsFUSQFGRvA9">Haritada aç ve yol tarifi al</a>
           </div>
